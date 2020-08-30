@@ -1,0 +1,89 @@
+/*
+Largest subarray with 0 sum
+
+Given an array having both positive and negative integers. The task is to compute the length of the largest subarray with sum 0.
+
+Example 1:
+
+Input:
+N = 8
+A[] = {15,-2,2,-8,1,7,10,23}
+Output: 5
+Explanation: The largest subarray with
+sum 0 will be -2 2 -8 1 7.
+
+Your Task:
+You just have to complete the function maxLen() which takes two arguments an array A and n, where n is the size of the array A and returns the length of the largest subarray with 0 sum.
+
+Expected Time Complexity: O(N*Log(N)).
+Expected Auxiliary Space: O(N).
+
+Constraints:
+1 <= N <= 104
+-1000 <= A[i] <= 1000, for each valid i
+*/
+//code goes here
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxLen(int A[], int n);
+
+int main()
+{
+    int T;
+    cin >> T;
+    while (T--)
+    {
+        int N;
+        cin >> N;
+        int A[N];
+        for (int i = 0; i < N; i++)
+            cin >> A[i];
+        cout << maxLen(A, N) << endl;
+    }
+}
+// } Driver Code Ends
+
+
+/*You are required to complete this function*/
+
+int maxLen(int a[], int n)
+{
+    // Your code here
+    int nxs[n];
+    int s=0;int i,j;
+    for(i=0;i<n;i++)
+    {
+     nxs[i]=s+a[i];
+        s=nxs[i];
+        
+   // cout<<s<<' ';    
+    }
+    if(s==0)
+    return n;
+    unordered_map<int,int> m1;
+    
+    int maxi=0;
+    for(i=0;i<n;i++)
+    {
+        if(nxs[i]==0)
+        maxi=i+1;
+        if(m1[nxs[i]])
+        {
+         maxi=max(i-(m1[nxs[i]]-1),maxi);
+        //  if(a[i]==0)
+        //  maxi+=1;
+        // cout<<maxi<<'\n';
+        }
+       else  m1[nxs[i]]=i+1;
+       
+      // cout<<nxs[i];
+    }
+    
+    
+
+    
+    
+    return maxi;
+    
+}
